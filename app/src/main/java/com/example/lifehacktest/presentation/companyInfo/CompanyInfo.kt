@@ -44,7 +44,8 @@ class CompanyInfo : Fragment() {
 
     private fun observeViewModel() {
         viewModel.companyLD.observe(viewLifecycleOwner) {
-            initViews(it)
+        var a = it
+        //initViews(it)
         }
     }
 
