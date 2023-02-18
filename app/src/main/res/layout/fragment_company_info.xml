@@ -6,46 +6,149 @@
     android:layout_height="match_parent"
     tools:context=".presentation.companyInfo.CompanyInfo">
 
-    <LinearLayout
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+      <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/tvCompanyName"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/ivCompanyLogo"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvCompanyName"
             tools:src="@tools:sample/avatars" />
 
         <TextView
+            android:id="@+id/tvDescriptionHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingStart="5dp"
+            android:text="@string/tvDescriptionHeader"
+            android:textAlignment="textEnd"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/tvCompanyDescription"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivCompanyLogo" />
+
+        <TextView
             android:id="@+id/tvCompanyDescription"
-            android:layout_width="match_parent"
+            android:paddingStart="5dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="start|top"
-            android:inputType="textMultiLine" />
+            android:inputType="textMultiLine"
+            android:text="description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="4"
+            app:layout_constraintStart_toEndOf="@+id/tvDescriptionHeader"
+            app:layout_constraintTop_toBottomOf="@+id/ivCompanyLogo" />
+
+        <TextView
+            android:id="@+id/tvCoordinatesHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingStart="5dp"
+            android:text="@string/tvCoordinateHeader"
+            android:textAlignment="textEnd"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/tvCoordinate"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvCompanyDescription" />
 
         <TextView
             android:id="@+id/tvCoordinate"
-            android:layout_width="match_parent"
+            android:paddingStart="5dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="TextView"
+            android:singleLine="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="4"
+            app:layout_constraintStart_toEndOf="@+id/tvCoordinatesHeader"
+            app:layout_constraintTop_toBottomOf="@+id/tvCompanyDescription" />
 
         <TextView
-            android:id="@+id/tvWebSite"
-            android:layout_width="match_parent"
+            android:id="@+id/tvWebHeader"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:paddingStart="5dp"
+            android:text="@string/tvWebHeader"
+            android:textAlignment="textEnd"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/tvWeb"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvCoordinate" />
 
         <TextView
-            android:id="@+id/tvPfoneNumber"
-            android:layout_width="match_parent"
+            android:id="@+id/tvWeb"
+            android:paddingStart="5dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="TextView" />
-    </LinearLayout>
+            android:autoLink="web"
+            android:linksClickable="true"
+            android:text="www"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="4"
+            app:layout_constraintStart_toEndOf="@+id/tvWebHeader"
+            app:layout_constraintTop_toBottomOf="@+id/tvCoordinate" />
+
+        <TextView
+            android:id="@+id/tvPhoneHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingStart="5dp"
+            android:text="@string/tvPhoneHeader"
+            android:textAlignment="textEnd"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/tvPhoneNumber"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvWeb" />
+
+        <TextView
+            android:id="@+id/tvPhoneNumber"
+            android:paddingStart="5dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:autoLink="phone"
+            android:linksClickable="true"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="4"
+            app:layout_constraintStart_toEndOf="@+id/tvPhoneHeader"
+            app:layout_constraintTop_toBottomOf="@+id/tvWeb" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+  </ScrollView>
+
 </FrameLayout>

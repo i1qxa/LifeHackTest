@@ -1,7 +1,9 @@
 package com.example.lifehacktest.presentation.companyList
 
-import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.lifehacktest.data.remote.CompanyShort
 import com.example.lifehacktest.data.remote.RetrofitService
 import kotlinx.coroutines.launch

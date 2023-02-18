@@ -5,10 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.example.lifehacktest.data.remote.Company
 import com.example.lifehacktest.data.remote.RetrofitService
 import com.example.lifehacktest.databinding.FragmentCompanyInfoBinding
-import com.squareup.picasso.Picasso
 
 private const val COMPANY_ID = "company_id"
 const val EMPTY_COMPANY_ID = -1
@@ -44,18 +44,20 @@ class CompanyInfo : Fragment() {
 
     private fun observeViewModel() {
         viewModel.companyLD.observe(viewLifecycleOwner) {
-        var a = it
-        //initViews(it)
+            initViews(it)
         }
     }
 
     private fun initViews(company: Company) {
         binding.tvCompanyName.text = company.name
-        Picasso.get().load("${RetrofitService.BASE_URL}${company.img}").into(binding.ivCompanyLogo)
+        Glide.with(binding.ivCompanyLogo)
+            .load("${RetrofitService.BASE_URL}${company.img}")
+            .centerCrop()
+            .into(binding.ivCompanyLogo)
         binding.tvCompanyDescription.text = company.description
-        binding.tvCoordinate.text = "${company.lat} : ${company.lon}"
-        binding.tvWebSite.text = company.vebSite?:""
-        binding.tvPfoneNumber.text = company.phoneNumber?:""
+        binding.tvCoordinate.text = "${company.lat},${company.lon}"
+        binding.tvWeb.text = company.www?:""
+        binding.tvPhoneNumber.text = company.phone?:""
     }
 
     private fun parseParams() {
