@@ -4,13 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.lifehacktest.data.remote.Company
 import com.example.lifehacktest.data.remote.RetrofitService
 import com.example.lifehacktest.databinding.FragmentCompanyInfoBinding
 
-private const val COMPANY_ID = "company_id"
+private const val COMPANY_ID = "company"
 const val EMPTY_COMPANY_ID = -1
 
 class CompanyInfo : Fragment() {
@@ -48,17 +49,28 @@ class CompanyInfo : Fragment() {
         }
     }
 
-    private fun initViews(company: Company) {
-        binding.tvCompanyName.text = company.name
-        Glide.with(binding.ivCompanyLogo)
-            .load("${RetrofitService.BASE_URL}${company.img}")
-            .centerCrop()
-            .into(binding.ivCompanyLogo)
-        binding.tvCompanyDescription.text = company.description
-        binding.tvCoordinate.text = "${company.lat},${company.lon}"
-        binding.tvWeb.text = company.www?:""
-        binding.tvPhoneNumber.text = company.phone?:""
+    private fun initViews(company: Company?) {
+        if (company!=null){
+            Glide.with(binding.ivCompanyLogo)
+                .load("${RetrofitService.BASE_URL}${company.img}")
+                .centerCrop()
+                .into(binding.ivCompanyLogo)
+            with(binding){
+                scrollViewCompany.visibility = View.VISIBLE
+                tvCompanyName.text = company.name
+                tvCompanyDescription.text = company.description
+                tvCoordinate.text = "${company.lat},${company.lon}"
+                tvWeb.text = company.www?:""
+                tvPhoneNumber.text = company.phone?:""
+            }
+
+        }
+        else{
+            Toast.makeText(requireContext(),"Ошибка загрузки данных",Toast.LENGTH_SHORT).show()
+            parentFragmentManager.popBackStack()
+        }
     }
+
 
     private fun parseParams() {
         val args = requireArguments()
@@ -71,7 +83,7 @@ class CompanyInfo : Fragment() {
         fun newInstance(companyId: Int) =
             CompanyInfo().apply {
                 arguments = Bundle().apply {
-                    putInt(COMPANY_ID, companyId)
+                putInt(COMPANY_ID, companyId)
                 }
             }
     }

@@ -15,8 +15,8 @@ class CompanyInfoViewModel : ViewModel() {
 
     private val retrofit = RetrofitService.getInstance()
 
-    private val _companyLD = MutableLiveData<Company>()
-    val companyLD: LiveData<Company>
+    private val _companyLD = MutableLiveData<Company?>()
+    val companyLD: LiveData<Company?>
         get() = _companyLD
 
     fun getCompany(companyId: Int) {
@@ -24,19 +24,21 @@ class CompanyInfoViewModel : ViewModel() {
         else {
             viewModelScope.launch {
                 val response = retrofit.getCompanyInfo(companyId)
-                if (response.isSuccessful){
-                    val responseBody = response.body().toString()
-                    Log.i("Test Response", responseBody)
-                    _companyLD.postValue(customSerializer(responseBody))
+                if (response.isSuccessful) {
+                    _companyLD.postValue(customSerializer(response.body()))
+                } else {
+                    _companyLD.postValue(null)
                 }
             }
         }
     }
-private fun customSerializer(response:String):Company{
-    var modifiedResponse = Regex(""" "[^,]""").replace(response," '")
-    modifiedResponse = Regex("""" """).replace(modifiedResponse, "' ")
-    modifiedResponse = modifiedResponse.substring(1 until modifiedResponse.length-1)
-    Log.i("Test Response", modifiedResponse)
-    return Json.decodeFromString<Company>(modifiedResponse)
+
+    private fun customSerializer(response: String?): Company? {
+        if (response == null) return null
+        return try {
+            Json.decodeFromString<Company>(response.substring(1 until response.length-1))
+        } catch (e:java.lang.Exception){
+            null
+        }
     }
 }
